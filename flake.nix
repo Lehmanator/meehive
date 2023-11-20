@@ -6,63 +6,88 @@
       nixpkgsConfig = { allowUnfree = true; };
       cellsFrom = ./cells;
       cellBlocks = with std.blockTypes; with hive.blockTypes; [
-        # modules implement
-        (functions "darwinModules")
-        (functions "devshellModules")
-        (functions "homeModules")
-        (functions "nixosModules")
-
-        # profiles activate
-        (functions "darwinProfiles")
-        (functions "devshellProfiles")
-        (functions "diskoProfiles")
-        (functions "hardwareProfiles")
-        (functions "homeProfiles")
-        (functions "nixosProfiles")
-        (functions "nixvimProfiles")
-        (functions "robotnixProfiles")
-
-        # suites aggregate profiles
-        (functions "darwinSuites")
-        (functions "devshellSuites")
-        (functions "homeSuites")
-        (functions "nixosSuites")
-        (functions "nixvimSuites")
-        (functions "robotnixSuites")
-
-        # configurations can be deployed
+        # modules implement - profiles activate - suites aggregate - configs get deployed
+        #(functions "colmenaModules")
+        #(functions "colmenaProfiles")
+        #(functions "colmenaSuites")
         colmenaConfigurations
-        darwinConfigurations
-        diskoConfigurations
-        homeConfigurations
-        nixosConfigurations
-        (functions "nixondroidConfigurations")
-        (functions "nixvimConfigurations")
-        (functions "robotnixConfigurations")
-
-        # devshells can be entered
+        #(functions "devshellModules")
+        #(functions "devshellProfiles")
+        #(functions "devshellSuites")
         (devshells "devshells")
+        #(functions "diskoModules")
+        #(functions "diskoProfiles")
+        #(functions "diskoSuites")
+        diskoConfigurations
+        #(functions "darwinModules")
+        #(functions "darwinProfiles")
+        #(functions "darwinSuites")
+        #darwinConfigurations
+        #(functions "droidModules")
+        #(functions "droidProfiles")
+        #(functions "droidSuites")
+        #(functions "droidConfigurations")
+        #(functions "hardwareModules")
+        (functions "hardwareProfiles")
+        #(functions "hardwareSuites")
+        (functions "hardwareConfigurations")
+        (functions "homeModules")
+        (functions "homeProfiles")
+        (functions "homeSuites")
+        homeConfigurations
+        (functions "nixosModules")
+        (functions "nixosProfiles")
+        (functions "nixosSuites")
+        nixosConfigurations
+        #(functions "nixvimModules")
+        #(functions "nixvimProfiles")
+        #(functions "nixvimSuites")
+        #(functions "nixvimConfigurations")
+        #(functions "robotnixModules")
+        #(functions "robotnixProfiles")
+        #(functions "robotnixSuites")
+        #(functions "robotnixConfigurations")
         (functions "lib")
         (functions "overlays")
         (runnables "jobs")
         (runnables "apps")
-        (installables "packages" {ci.publish=true;})
-        (containers "containers" {ci.publish=true;})
+        (installables "packages" { ci.publish = true; })
+        (containers "containers" { ci.publish = true; })
         (files "examples")
         (data "templates")
       ];
     }
     {
       # soil
-      devShells = std.harvest self [ "repo" "shells" ];
+      devShells = std.harvest self [ "repo" "devshells" ];
     }
     {
       colmenaHive = hive.collect self "colmenaConfigurations";
-      darwinConfigurations = hive.collect self "darwinConfigurations";
+      #darwinConfigurations = hive.collect self "darwinConfigurations";
+      #darwinModules = hive.collect self "darwinModules";
+      #darwinProfiles = hive.collect self "darwinProfiles";
+      #darwinSuites = hive.collect self "darwinSuites";
       diskoConfigurations = hive.collect self "diskoConfigurations";
+      #diskoModules = hive.collect self "diskoModules";
+      #diskoProfiles = hive.collect self "diskoProfiles";
+      #diskoSuites = hive.collect self "diskoSuites";
+      hardwareConfigurations = hive.collect self "hardwareConfigurations";
+      #hardwareModules = std.harvest self [ "lehmanator" "hardwareModules" ];
+      hardwareProfiles = std.harvest self [ "lehmanator" "hardwareProfiles" ];
+      hardwareSuites = std.harvest self [ "lehmanator" "hardwareSuites" ];
       homeConfigurations = hive.collect self "homeConfigurations";
+      #homeModules = std.harvest self [ "lehmanator" "homeModules" ];
+      homeProfiles = std.harvest self [ "lehmanator" "homeProfiles" ];
+      #homeSuites = std.harvest self [ "lehmanator" "homeSuites" ];
       nixosConfigurations = hive.collect self "nixosConfigurations";
-      #nixondroidConfigurations = hive.collect self "nixondroidConfigurations";
+      #nixosModules = std.harvest self [ "lehmanator" "nixosModules" ];
+      nixosProfiles = std.harvest self [ "lehmanator" "nixosProfiles" ];
+      #nixosSuites = std.harvest self [ "lehmanator" "nixosSuites" ];
+      #nixvimConfigurations = hive.collect self "nixvimConfigurations";
+      #nixvimModules = hive.collect self "nixvimModules";
+      #nixvimProfiles = hive.collect self "nixvimProfiles";
+      #nixvimSuites = hive.collect self "nixvimSuites";
+      #   droidConfigurations = hive.collect self "droidConfigurations";
       #robotnixConfigurations = hive.collect self "robotnixConfigurations";
     };
 
@@ -248,10 +273,10 @@
       };
     };
     qnr.url = "github:divnix/quick-nix-registry";
-    paisano-tui = {url="github:paisano-nix/tui"; inputs.nixpkgs.follows="nixpkgs";};
+    paisano-tui = { url = "github:paisano-nix/tui"; inputs.nixpkgs.follows = "nixpkgs"; };
     paisano = {
       url = "github:paisano-nix/core";
-      inputs.nixpkgs.follows="nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
 
@@ -294,7 +319,7 @@
     };
 
     # --- hall ---
-    kubenix = {url="github:hall/kubenix"; inputs.nixpkgs.follows="nixpkgs";};
+    kubenix = { url = "github:hall/kubenix"; inputs.nixpkgs.follows = "nixpkgs"; };
 
     # --- Helsinki-Systems
     #harmonia = { url = "github:helsinki-systems/harmonia"; inputs.nixpkgs.follows = "nixpkgs"; };

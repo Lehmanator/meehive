@@ -1,34 +1,28 @@
 { inputs, cell }: {
   wyse = {
     imports = [
-      inputs.lanzaboote.nixosModules.lanzaboote
-      #inputs.disko.nixosModules.disko
+      #cell.diskoConfigurations.wyse
       cell.hardwareConfigurations.wyse
-      #cell.nixosProfiles.lanzaboote
-      cell.nixosProfiles.default-packages
-      cell.nixosProfiles.default-users
-      cell.nixosProfiles.generators
-      cell.nixosProfiles.kernel-zen
-      cell.nixosProfiles.nix-config
-      cell.nixosProfiles.printing
-      #cell.nixosProfiles.home-manager
+      inputs.nixos-generators.nixosModules.all-formats
+      #inputs.qnr.nixosModules.local-registry
     ];
     bee = {
       system = "x86_64-linux";
       home = inputs.home-manager;
-      #darwin = inputs.nix-darwin;
-      #wsl = inputs.nixos-wsl;
       pkgs = import inputs.nixpkgs {
         inherit (inputs.nixpkgs) system;
         config.allowUnfree = true;
-        overlays = [ ];
+        overlays = [
+        ];
       };
+      #darwin = inputs.nix-darwin;
+      #wsl = inputs.nixos-wsl;
     };
-
-    system.stateVersion = "23.11";
 
     time.timeZone = "America/New_York";
     i18n.defaultLocale = "en_US.UTF-8";
+
+    services.sshd.enable = true;
 
     # Network Manager
     networking.networkmanager.enable = true;
@@ -84,9 +78,6 @@
         rerere.enable = true;
       };
     };
-
-    services.sshd.enable = true;
-
     programs.ssh = {
       extraConfig = ''
         Host github.com
@@ -94,6 +85,23 @@
           Hostname github.com
           IdentityFile ~/.ssh/id_rsa
       '';
+    };
+    programs.chromium.enable = true;
+
+    system.stateVersion = "23.11";
+
+    formatConfigs = {
+      install-iso = {
+        imports = [
+          (inputs.nixpkgs + "/modules/nixos/installers/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
+          (inputs.nixpkgs + "/modules/nixos/installers/cd-dvd/channel.nix")
+        ];
+      };
+      iso = {
+        imports = [
+          (inputs.nixpkgs + "/modules/nixos/installers/cd-dvd/iso-image.nix")
+        ];
+      };
     };
   };
 }

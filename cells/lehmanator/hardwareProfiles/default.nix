@@ -1,4 +1,8 @@
-inputs.hive.findLoad {
-  inherit inputs cell;
-  block = ./.;
+{ inputs, cell }:
+inputs.haumea.lib.load
+{
+  src = ./.;
+  inputs = {
+    inherit inputs cell;
+  };
 }

@@ -1,5 +1,4 @@
 { inputs, cell }: {
-  sam = {
   imports = [
     #cell.homeProfiles.git
     cell.homeProfiles.default-packages
@@ -98,5 +97,4 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-};
 }

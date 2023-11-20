@@ -1,8 +1,7 @@
-#{ inputs, cells }: {
-{
-  wyse = {
-    #nodev."/" = { fsType = "tmpfs"; mountOptions = [ "defaults" "size=3G" "mode=755" ]; };
-    disko.devices.disk.main = {
+{ inputs, cells }: {
+  disko.devices = {
+    nodev."/" = { fsType = "tmpfs"; mountOptions = [ "defaults" "size=3G" "mode=755" ]; };
+    disk.main = {
       type = "disk";
       device = "/dev/nvme0n1";
       content = {
