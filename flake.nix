@@ -30,14 +30,14 @@
         #(functions "hardwareModules")
         (functions "hardwareProfiles")
         #(functions "hardwareSuites")
-        (functions "hardwareConfigurations")
-        (functions "homeModules")
+        #(functions "hardwareConfigurations")
+        #(functions "homeModules")
         (functions "homeProfiles")
-        (functions "homeSuites")
+        #(functions "homeSuites")
         homeConfigurations
-        (functions "nixosModules")
+        #(functions "nixosModules")
         (functions "nixosProfiles")
-        (functions "nixosSuites")
+        #(functions "nixosSuites")
         nixosConfigurations
         #(functions "nixvimModules")
         #(functions "nixvimProfiles")
@@ -74,7 +74,7 @@
       hardwareConfigurations = hive.collect self "hardwareConfigurations";
       #hardwareModules = std.harvest self [ "lehmanator" "hardwareModules" ];
       hardwareProfiles = std.harvest self [ "lehmanator" "hardwareProfiles" ];
-      hardwareSuites = std.harvest self [ "lehmanator" "hardwareSuites" ];
+      #hardwareSuites = std.harvest self [ "lehmanator" "hardwareSuites" ];
       homeConfigurations = hive.collect self "homeConfigurations";
       #homeModules = std.harvest self [ "lehmanator" "homeModules" ];
       homeProfiles = std.harvest self [ "lehmanator" "homeProfiles" ];

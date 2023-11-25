@@ -1,9 +1,9 @@
 { inputs, cell }: {
   wyse = {
     imports = [
-      #inputs.disko.nixosModules.disko
+      inputs.disko.nixosModules.disko
       #inputs.nixos-hardware.nixosModules.common-pc-ssd
-      #cell.diskoConfigurations.wyse
+      cell.diskoConfigurations.lehmanator-wyse
       cell.hardwareProfiles.dhcp
     ];
     boot = {

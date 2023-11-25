@@ -3,14 +3,15 @@
     imports = [
       inputs.lanzaboote.nixosModules.lanzaboote
       #inputs.disko.nixosModules.disko
-      cell.hardwareConfigurations.wyse
+      #cell.diskoConfigurations.wyse
+      cell.hardwareProfiles.wyse
       #cell.nixosProfiles.lanzaboote
       cell.nixosProfiles.default-packages
       cell.nixosProfiles.default-users
       cell.nixosProfiles.generators
       cell.nixosProfiles.kernel-zen
       cell.nixosProfiles.nix-config
-      cell.nixosProfiles.printing
+      #cell.nixosProfiles.printing
       #cell.nixosProfiles.home-manager
     ];
     bee = {
@@ -18,11 +19,13 @@
       home = inputs.home-manager;
       #darwin = inputs.nix-darwin;
       #wsl = inputs.nixos-wsl;
-      pkgs = import inputs.nixpkgs {
-        inherit (inputs.nixpkgs) system;
-        config.allowUnfree = true;
-        overlays = [ ];
-      };
+      #pkgs = import inputs.nixpkgs {
+      #  inherit (inputs.nixpkgs) system;
+      #  config.allowUnfree = true;
+      #  overlays = [ ];
+      #};
+      #pkgs = cell.pkgs;
+      pkgs = inputs.nixpkgs;
     };
 
     system.stateVersion = "23.11";
