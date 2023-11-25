@@ -11,42 +11,52 @@
         #(functions "colmenaProfiles")
         #(functions "colmenaSuites")
         colmenaConfigurations
+
         #(functions "devshellModules")
         #(functions "devshellProfiles")
         #(functions "devshellSuites")
         (devshells "devshells")
+
         #(functions "diskoModules")
         #(functions "diskoProfiles")
         #(functions "diskoSuites")
         diskoConfigurations
+
         #(functions "darwinModules")
         #(functions "darwinProfiles")
         #(functions "darwinSuites")
         #darwinConfigurations
+
         #(functions "droidModules")
         #(functions "droidProfiles")
         #(functions "droidSuites")
         #(functions "droidConfigurations")
+
         #(functions "hardwareModules")
         (functions "hardwareProfiles")
         #(functions "hardwareSuites")
         #(functions "hardwareConfigurations")
+
         #(functions "homeModules")
         (functions "homeProfiles")
         #(functions "homeSuites")
         homeConfigurations
+
         #(functions "nixosModules")
         (functions "nixosProfiles")
         #(functions "nixosSuites")
         nixosConfigurations
+
         #(functions "nixvimModules")
         #(functions "nixvimProfiles")
         #(functions "nixvimSuites")
         #(functions "nixvimConfigurations")
+
         #(functions "robotnixModules")
         #(functions "robotnixProfiles")
         #(functions "robotnixSuites")
         #(functions "robotnixConfigurations")
+
         (functions "lib")
         (functions "overlays")
         (runnables "jobs")
@@ -57,38 +67,57 @@
         (data "templates")
       ];
     }
+    # --- soil ---
     {
-      # soil
       devShells = std.harvest self [ "repo" "devshells" ];
     }
     {
       colmenaHive = hive.collect self "colmenaConfigurations";
+
       #darwinConfigurations = hive.collect self "darwinConfigurations";
-      #darwinModules = hive.collect self "darwinModules";
-      #darwinProfiles = hive.collect self "darwinProfiles";
-      #darwinSuites = hive.collect self "darwinSuites";
+      #darwinModules = std.harvest self "darwinModules";
+      #darwinProfiles = std.harvest self "darwinProfiles";
+      #darwinSuites = std.harvest self "darwinSuites";
+
+      #devshellModules = std.harvest self ["lehmanator" "devshellModules"];
+      #devshellProfiles = std.harvest self ["lehmanator" "devshellProfiles"];
+      #devshellSuites = std.harvest self ["lehmanator" "devshellSuites"];
+      #devShells = std.harvest self ["lehmanator" "devshellConfigurations"];
+
       diskoConfigurations = hive.collect self "diskoConfigurations";
-      #diskoModules = hive.collect self "diskoModules";
-      #diskoProfiles = hive.collect self "diskoProfiles";
-      #diskoSuites = hive.collect self "diskoSuites";
+      #diskoModules = std.harvest self "diskoModules";
+      #diskoProfiles = std.harvest self "diskoProfiles";
+      #diskoSuites = std.harvest self "diskoSuites";
+
       hardwareConfigurations = hive.collect self "hardwareConfigurations";
       #hardwareModules = std.harvest self [ "lehmanator" "hardwareModules" ];
       hardwareProfiles = std.harvest self [ "lehmanator" "hardwareProfiles" ];
       #hardwareSuites = std.harvest self [ "lehmanator" "hardwareSuites" ];
+
       homeConfigurations = hive.collect self "homeConfigurations";
       #homeModules = std.harvest self [ "lehmanator" "homeModules" ];
       homeProfiles = std.harvest self [ "lehmanator" "homeProfiles" ];
       #homeSuites = std.harvest self [ "lehmanator" "homeSuites" ];
+
       nixosConfigurations = hive.collect self "nixosConfigurations";
       #nixosModules = std.harvest self [ "lehmanator" "nixosModules" ];
       nixosProfiles = std.harvest self [ "lehmanator" "nixosProfiles" ];
       #nixosSuites = std.harvest self [ "lehmanator" "nixosSuites" ];
-      #nixvimConfigurations = hive.collect self "nixvimConfigurations";
-      #nixvimModules = hive.collect self "nixvimModules";
-      #nixvimProfiles = hive.collect self "nixvimProfiles";
-      #nixvimSuites = hive.collect self "nixvimSuites";
-      #   droidConfigurations = hive.collect self "droidConfigurations";
-      #robotnixConfigurations = hive.collect self "robotnixConfigurations";
+
+      #nixvimConfigurations = std.harvest self ["lehmanator" "nixvimConfigurations"];
+      #nixvimModules = std.harvest self ["lehmanator" "nixvimModules"];
+      #nixvimProfiles = std.harvest self ["lehmanator" "nixvimProfiles"];
+      #nixvimSuites = std.harvest self ["lehmanator" "nixvimSuites"];
+
+      #droidConfigurations = std.harvest self ["lehmanator" "droidConfigurations"];
+      #droidModules = std.harvest self ["lehmanator" "droidModules"];
+      #droidProfiles = std.harvest self ["lehmanator" "droidProfiles"];
+      #droidSuites = std.harvest self ["lehmanator" "droidSuites"];
+
+      #robotnixConfigurations = std.harvest self ["lehmanator" "robotnixConfigurations"];
+      #robotnixModules = std.harvest self ["lehmanator" "robotnixModules"];
+      #robotnixProfiles = std.harvest self ["lehmanator" "robotnixProfiles"];
+      #robotnixSuites = std.harvest self ["lehmanator" "robotnixSuites"];
     };
 
   inputs = {
